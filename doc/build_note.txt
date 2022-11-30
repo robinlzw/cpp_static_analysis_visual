@@ -1,0 +1,50 @@
+
+
+======================================================
+编译所有体系结构的 (ALL TARGET)
+D:/AA_lizw/osp/llvm-project
+cmake -S llvm -B build -G "Visual Studio 16 2019" -A x64 -Thost=x64 -DCMAKE_INSTALL_PREFIX=../llvm_installed_only_clang_release/ -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang" -DLLVM_ENABLE_RTTI=ON ./llvm
+
+
+======================================================
+编译X86-64体系结构的 (TARGET AArch64)
+cmake -S llvm -B build -G "Visual Studio 16 2019" -A x64 -Thost=x64 -DLLVM_TARGETS_TO_BUILD=AArch64 -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang" -DLLVM_ENABLE_RTTI=ON ./llvm
+
+
+
+======================================================
+不带clang，不支持C++项目
+cmake -G "Visual Studio 14 2015 Win64" -DBOOST_ROOT=D:/thirdparty/boost_1_67_0 -DQt5_DIR=D:/thirdparty/Qt5.14.2/5.14.2/msvc2015_64/lib/cmake/Qt5 ../..
+
+======================================================
+带clang，支持C++项目
+------------------------------------------------------
+第一种 自己编译llvm/clang
+D:/AA_lizw/osp/llvm-project/build/lib/cmake/clang
+------------------------------------------------------
+第二种 编译好的llvm/clang
+https://objects.githubusercontent.com/github-production-release-asset-2e65be/75821432/4d8d2e00-0d43-11eb-9783-f1f40d10941e?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20221125%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20221125T064614Z&X-Amz-Expires=300&X-Amz-Signature=649ba01571296dc41446c9d2bdaef93573b424d64bc043d6272a8ae65cb2e5dd&X-Amz-SignedHeaders=host&actor_id=26412089&key_id=0&repo_id=75821432&response-content-disposition=attachment%3B%20filename%3DLLVM-11.0.0-win64.exe&response-content-type=application%2Foctet-stream
+D:/thirdparty/LLVM
+
+
+编译好的boost
+------------------------------------------------------
+14.0 vs2015可用
+14.1 vs2019可用
+https://master.dl.sourceforge.net/project/boost/boost-binaries/1.67.0/boost_1_67_0-msvc-14.0-64.exe?viasf=1
+https://master.dl.sourceforge.net/project/boost/boost-binaries/1.67.0/boost_1_67_0-msvc-14.1-64.exe?viasf=1
+
+cmake -DClang_DIR=D:/thirdparty/LLVM -DBUILD_CXX_LANGUAGE_PACKAGE=ON -DCMAKE_BUILD_TYPE="Release" -DBOOST_ROOT=D:/thirdparty/boost_1_67_0 -DQt5_DIR=D:/thirdparty/Qt5.14.2/5.14.2/msvc2015_64/lib/cmake/Qt5 ../
+cmake -DClang_DIR=D:/AA_lizw/osp/llvm-project/build/lib/cmake/clang -DBUILD_CXX_LANGUAGE_PACKAGE=ON -DCMAKE_BUILD_TYPE="Release" -DBOOST_ROOT=D:/thirdparty/vc141/boost_1_67_0 -DQt5_DIR=D:/thirdparty/Qt5.14.2/5.14.2/msvc2015_64/lib/cmake/Qt5 ../
+ 
+  
+
+
+======================================================
+问题
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	LNK2019	unresolved external symbol LLVMInitializeX86AsmParser referenced in function "void __cdecl llvm::InitializeAllAsmParsers(void)" (?InitializeAllAsmParsers@llvm@@YAXXZ)	Sourcetrail_indexer	D:\AA_lizw\osp\Sourcetrail\build\Sourcetrail_lib_cxx.lib(CxxParser.obj)	1	
+
+list(APPEND LLVM_TARGETS_TO_BUILD X86)
+
+
