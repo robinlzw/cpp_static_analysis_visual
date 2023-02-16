@@ -47,4 +47,6 @@ Error	LNK2019	unresolved external symbol LLVMInitializeX86AsmParser referenced i
 
 list(APPEND LLVM_TARGETS_TO_BUILD X86)
 
-
+add lib in Linker/Input/Additional Dependencies: 
+D:\AA_lizw\osp\llvm-project\build\Debug\lib\LLVMAArch64AsmParser.lib
+D:\AA_lizw\osp\llvm-project\build\Debug\lib\LLVMX86AsmParser.lib
